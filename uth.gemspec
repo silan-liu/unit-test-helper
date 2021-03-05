@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name          = "uth"
   spec.version       = Uth::VERSION
   spec.authors       = ["刘思兰"]
-  spec.email         = ["liusilan@douyu.tv"]
+  spec.email         = ["413769707@qq.com"]
 
   spec.summary       = "Unit Test Helper."
   spec.description   = "Unit Test Helper."
