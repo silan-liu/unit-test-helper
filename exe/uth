@@ -1,0 +1,58 @@
+#! /usr/bin/env ruby
+# frozen_string_literal: true
+
+# Demonstrate how subcommands can be declared as classes
+
+require "clamp"
+require "food"
+
+module UnitTest
+
+  class AbstractCommand < Clamp::Command
+
+    option ["-v", "--verbose"], :flag, "be verbose"
+
+    def say(message)
+      message = message.upcase if verbose?
+      puts message
+    end
+
+  end
+
+  # 组件用例同步
+  class SyncCommand < AbstractCommand
+
+    option ["-b", "--back"], :flag, "sync back to components"
+    parameter "ComponentPath ...", "components project path"
+ 
+    def execute
+        helper = UnitTestHelper.new(Dir.getwd, componentpath_list)
+        # 同步回组件
+        if back?
+          helper.sync_all_components_back()
+        else 
+          # 同步到主工程
+          helper.sync_all_components_to_main()
+        end
+    end
+  end
+
+  # 主工程环境清理
+  class ClearCommand < AbstractCommand
+    def execute
+      helper = UnitTestHelper.new(Dir.getwd, [])
+      helper.clear()
+    end
+
+  end
+
+  class MainCommand < AbstractCommand
+
+    subcommand "sync", "sync components unit test casae to main project.", SyncCommand
+    subcommand "clear", "clear main project env.", ClearCommand
+
+  end
+
+end
+
+UnitTest::MainCommand.run

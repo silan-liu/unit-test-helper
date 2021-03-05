@@ -1,0 +1,21 @@
+PATH
+  remote: .
+  specs:
+    uth (0.1.0)
+      clamp (~> 0.6)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    clamp (0.6.5)
+    rake (13.0.3)
+
+PLATFORMS
+  universal-darwin-19
+
+DEPENDENCIES
+  rake (~> 13.0)
+  uth!
+
+BUNDLED WITH
+   2.2.13
